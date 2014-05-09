@@ -1,0 +1,26 @@
+extends ../shared/template
+
+block content
+
+  .container
+    h1.priority-header Priority List
+
+    form.create-priority(method='POST', action='/priorities')
+      input.name(type='text', name='name', placeholder='Name', autofocus=true)
+      input.color(type='color', name='color')
+      button.button.button-border.add Add
+
+
+    table
+      thead
+        tr
+          th Name
+          th Delete
+        tbody
+          each priority in priorities
+            tr.priority-list(style='background-color: #{priority.color}')
+              td= priority.name
+              td
+                form(method='POST', action='/priorities/#{priority._id}')
+                  input(type='hidden', name='_method', value='DELETE')
+                  button.delete-button Delete
